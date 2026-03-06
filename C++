@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <sstream>
+
+using namespace std;
+
+int finalSong(vector<int>& songs, vector<string>& commands) {
+
+    int n = songs.size();
+    int index = 0;
+
+    for (string cmd : commands) {
+
+        if (cmd == "NEXT") {
+            index = (index + 1) % n;
+        }
+
+        else if (cmd == "PREV") {
+            index = (index - 1 + n) % n;
+        }
+
+        else {
+
+            string word;
+            int k;
+
+            stringstream ss(cmd);
+            ss >> word >> k;
+
+            index = (index + k) % n;
+        }
+    }
+
+    return songs[index];
+}
+
+int main() {
+
+    vector<int> songs = {10,20,30,40,50};
+
+    vector<string> commands = {
+        "NEXT",
+        "NEXT",
+        "PLAY 3",
+        "PREV"
+    };
+
+    cout << finalSong(songs, commands);
+
+}
